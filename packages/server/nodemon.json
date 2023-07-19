@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json,graphql,js",
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "npx ts-node ./src/index.ts --optimize_for_size --gc_interval=100"
+}

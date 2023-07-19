@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ColorEnum {
+  yellow
+  red
+  green
+  indigo
+  blue
+  purple
+  grey
+}
+
+enum InteractionTypeEnum {
+  info
+  multiple
+  form
+  open
+  final
+}
+
+enum FlowStateEnum {
+  live
+  offline
+  archived
+}
+
+enum TextStyleEnum {
+  light
+  dark
+}
+
+model Organization {
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  users     User[]
+  projects  Project[]
+}
+
+model Project {
+  id             String       @id @default(cuid())
+  organizationId String
+  name           String
+  color          ColorEnum    @default(yellow)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  themes         Theme[]
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Theme {
+  id                 String   @id @default(cuid())
+  projectId          String
+  name               String
+  backgoundColor     String?
+  textColor          String?
+  primaryColor       String?
+  primaryTextColor   String?
+  secondaryColor     String?
+  secondaryTextColor String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  project            Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String   @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?  @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model User {
+  id             String       @id @default(cuid())
+  organizationId String
+  name           String?
+  email          String?      @unique
+  emailVerified  DateTime?
+  image          String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  accounts       Account[]
+  sessions       Session[]
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([identifier, token])
+}

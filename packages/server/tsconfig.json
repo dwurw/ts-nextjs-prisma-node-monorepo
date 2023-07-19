@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "ES2017",
+    "module": "commonjs",
+    "lib": [ "dom","es6" ],
+    "outDir": "dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+  },
+  "allowSyntheticDefaultImports": true,
+  "exclude": [ "node_modules", "src/database/*.js" ],
+  "include": [ "src/**/*.ts"]
+}

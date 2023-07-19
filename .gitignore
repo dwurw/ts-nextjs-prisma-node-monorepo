@@ -1,0 +1,27 @@
+# Dependencies
+/packages/*/node_modules
+/node_modules
+
+
+# Local envs
+.DS_Store
+/packages/*/.DS_Store
+/packages/*/.env
+/packages/*/.env.local
+/packages/*/.env.development.local
+/packages/*/.env.test.local
+/packages/*/.env.production.local
+
+
+# Debug
+/packages/*/npm-debug.log*
+/packages/*/yarn-debug.log*
+/packages/*/yarn-error.log*
+
+# Builds/Cache/Settings
+/packages/*/build
+/packages/*/.next
+/packages/*/out
+/packages/*/public/build
+/packages/*/.cache
+/packages/*/.netlify

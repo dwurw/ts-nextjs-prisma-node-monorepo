@@ -1,0 +1,19 @@
+{
+  "name": "ts-nextjs-prisma-node-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo Boilerplate for Typescript, NextJS, Prisma, NodeJS/Express",
+  "repository": "https://github.com/dwurw/ts-nextjs-prisma-node-monorepo.git",
+  "author": "Sergey Kucher <sergey@kucher.dev>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start:app": "cd packages/app && yarn generate && yarn dev",
+    "start:server": "cd packages/server && yarn generate && yarn start"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "prettier": "^2.5.0"
+  }
+}
